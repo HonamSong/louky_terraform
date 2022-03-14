@@ -1,2 +1,2 @@
-# louky_terraform
+# terraform
 Terraform 
