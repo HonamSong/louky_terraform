@@ -1,0 +1,70 @@
+## Comman ENV : Echo Color
+c_red='\033[0;31m'              ## Red Color
+c_blue='\033[0;34m'             ## Blue Color
+c_yellow='\033[1;33m'           ## Yello Color
+c_orange='\033[0;33m'           ## Orange Color
+c_green='\033[0;32m'            ## Green Color
+c_lightred='\033[1;31m'
+nc='\033[0m'
+
+alias tf_init='echo -e "${c_yellow}\n++ CMD : terraform init -upgrade${nc}\n\n" ; terraform init -upgrade'
+
+terraform_plan () {
+        echo -e "${c_yellow}\n++ CMD : terraform init -upgrade && terraform  plan ${1}${nc}\n\n"
+        terraform init -upgrade  && terraform  plan $*
+}
+
+terraform_apply () {
+        terraform_plan "$1"
+        echo -e "\n${c_green}++ CMD : terraform apply -auto-approve $1 ${nc}\n\n"
+        time terraform apply -auto-approve "$1"
+}
+
+terraform_destroy () {
+        echo -e "\n${c_red}${notice}${nc}\n\n${c_red}++ CMD : terraform destroy -auto-approve $1${nc}\n\n"
+        for  ((i=5;i<=1;i--)) ; do
+                echo "Wait ... $i"
+                sleep  $i
+        done
+        time terraform destroy -auto-approve $1
+}
+
+tf_cmd () {
+        case $1 in
+                "init" )
+                        echo -e "${c_yellow}\n++ CMD : terraform init -upgrade${nc}\n\n "
+                        terraform init -upgrade
+                ;;
+                "plan" )
+                        terraform_plan "$2"
+                ;;
+
+                "apply" )
+                        terraform_apply "$2"
+                ;;
+
+                "destroy")
+                        terraform_destroy "$2"
+                ;;
+
+                "output" )
+                        echo -e "${c_yellow}\n++ CMD : terraform output ${nc}\n\n"
+                        terraform output
+                ;;
+        esac
+}
+
+##
+notice="
+ _   ____    _____   ____    _____   ____     ___   __   __  _
+| | |  _ \  | ____| / ___|  |_   _| |  _ \   / _ \  \ \ / / | |
+| | | | | | |  _|   \___ \    | |   | |_) | | | | |  \ V /  | |
+|_| | |_| | | |___   ___) |   | |   |  _ <  | |_| |   | |   |_|
+(_) |____/  |_____| |____/    |_|   |_| \_\  \___/    |_|   (_)
+"
+
+alias tf_plan=terraform_plan
+alias tf_apply=terraform_apply
+alias tf_destroy=terraform_destroy
+
+alias tf=tf_cmd
