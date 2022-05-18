@@ -1,16 +1,5 @@
 ###  VPC Create
 
-terraform {
-  required_version = ">= 1.1.7"
-  required_providers {
-    aws = {
-      source                = "hashicorp/aws"
-      version               = "~> 4.0"
-      #configuration_aliases = [ aws.alter ]
-    }
-  }
-}
-
 resource "aws_vpc" "post_vpc" {
   count                = var.vpc_create_flag == "1" ? "1" : "0"
   cidr_block           = var.vpc_net_addr

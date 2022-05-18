@@ -1,14 +1,4 @@
-
-terraform {
-  required_version = ">= 1.1.7"
-  required_providers {
-	aws = {
-	  source                = "hashicorp/aws"
-	  version               = "~> 4.0"
-	  #configuration_aliases = [ aws.alter ]
-	}
-  }
-}
+# icon-ec2 / ec2.tf
 
 locals {
   InstanceName         = "${local.region_name_rule}-${var.network_node_name}-${var.instance_name}"

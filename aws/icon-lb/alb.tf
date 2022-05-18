@@ -1,15 +1,5 @@
 # lb - alb.tf
 
-terraform {
-  required_version = ">= 1.1.7"
-  required_providers {
-	aws = {
-	  source                = "hashicorp/aws"
-	  version               = "~> 4.0"
-	  #configuration_aliases = [ aws.alter ]
-	}
-  }
-}
 ##   수정중!!!! ------------------------------------------------------------------------------
 locals {
 #  subnet_id_01 = var.vpc_create_flag == "1" ? aws_subnet.post_subnet[0].id : data.aws_subnet.get_subnet[0].id
