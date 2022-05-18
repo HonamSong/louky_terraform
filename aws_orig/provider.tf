@@ -1,17 +1,16 @@
+#### Terraform v0.14.7
 ###  https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
 terraform {
-  required_version = ">= 1.1.7"
   required_providers {
     aws = {
-      source                = "hashicorp/aws"
-      version               = "~> 4.0"
-#      configuration_aliases = [ aws.alter ]
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
     }
   }
 }
 
-provider aws {
+provider "aws" {
   #region = "ap-northeast-2"
   #region = "ap-northeast-1"
   region = var.aws_region
@@ -19,9 +18,9 @@ provider aws {
   # export AWS_SECRET_ACCESS_KEY="asecretkey"
 }
 
-provider aws {
+provider "aws" {
   ### Tokyo region
-  alias = "tokyo"
+  alias="tokyo"
   region = "ap-northeast-1"
 }
 
